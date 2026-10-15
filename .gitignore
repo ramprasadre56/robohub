@@ -7,3 +7,4 @@ next-env.d.ts
 dev.log
 *.log
 Claude outputs/
+.deploy-*.cmd

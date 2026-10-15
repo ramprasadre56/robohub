@@ -36,3 +36,8 @@ All content lives in `lib/data.ts`. **Hackathons, events and leaderboard entries
 
 - Hook `components/RegisterForm.tsx` to a Route Handler + database (e.g. Supabase) to store registrations.
 - Deploy on Vercel: push to GitHub and import the repo.
+
+## Robotics topic feed
+
+`/topics/robotics` is an X-style discussion feed (posts, replies, likes). In production it stores posts in Firestore (collection `robohub_posts`) using the `robohub-sa` service account; in local dev it uses an in-memory store (set `FEED_STORE=firestore` to use Firestore locally after `gcloud auth application-default login`).
+
