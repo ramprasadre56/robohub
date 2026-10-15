@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import {
   Menu, Plus, Home, Trophy, CalendarDays, GraduationCap, Newspaper, BarChart3,
-  Search, Cpu, BookOpen, Users,
+  Search, Cpu, BookOpen, Users, Hash,
 } from "lucide-react";
 
 const NAV = [
@@ -62,6 +62,9 @@ export default function Shell({ children }: { children: ReactNode }) {
         </Link>
         {NAV.map((n) => item(n.href, n.label, n.icon))}
         {SUB.map((n) => item(n.href, n.label, undefined, true))}
+        <div className="nav-sep" />
+        <div className="nav-label">Topics</div>
+        {item("/topics/robotics", "Robotics", Hash)}
         <div className="nav-sep" />
         {MORE.map((n) => item(n.href, n.label, n.icon))}
         <div className="nav-sep" />

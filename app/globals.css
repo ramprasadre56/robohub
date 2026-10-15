@@ -281,3 +281,36 @@ a.row:hover { background: var(--hover); }
   .card-banner { padding: 0 24px; }
   .table th:nth-child(3), .table td:nth-child(3) { display: none; }
 }
+
+/* ---------- Topic feed (X-style) ---------- */
+.feed-layout { display: grid; grid-template-columns: minmax(0, 640px) 320px; gap: 32px; justify-content: center; margin-top: 8px; }
+.feed-col { border-left: 1px solid var(--border); border-right: 1px solid var(--border); min-height: 80vh; }
+.feed-head { position: sticky; top: 74px; z-index: 5; background: var(--bg); padding: 14px 16px 0; border-bottom: 1px solid var(--border); }
+.feed-head .tab { padding: 12px 18px; }
+.feed-side { display: grid; gap: 20px; align-content: start; position: sticky; top: 90px; }
+.composer { display: flex; gap: 12px; padding: 16px; border-bottom: 1px solid var(--border); }
+.composer-name { width: 100%; font: inherit; font-weight: 600; border: 0; border-bottom: 1px dashed var(--border); background: transparent; color: var(--text); padding: 4px 0 6px; margin-bottom: 6px; outline: none; }
+.composer-text { width: 100%; font: inherit; font-size: 19px; border: 0; resize: vertical; background: transparent; color: var(--text); outline: none; padding: 6px 0; }
+.composer.compact .composer-text { font-size: 16px; }
+.composer-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.composer-foot .btn { padding: 8px 20px; }
+.btn:disabled { opacity: .45; cursor: default; }
+.text-btn { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font: inherit; }
+.warn { color: #c5221f; }
+.post { display: flex; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.post:hover { background: var(--hover); }
+.post-thread:hover { background: transparent; }
+.post-avatar { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-weight: 700; font-size: 15px; background: var(--accent); color: var(--ink-text); }
+.post-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.post-text { display: block; margin-top: 2px; white-space: pre-wrap; word-wrap: break-word; }
+.post-text.big { font-size: 19px; margin: 8px 0; }
+.post-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; font-size: 13.5px; color: var(--text-2); }
+.post-link:hover { background: var(--surface); color: var(--accent); }
+.post-actions { display: flex; gap: 36px; margin-top: 10px; }
+.post-action { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--text-2); cursor: pointer; font: inherit; font-size: 13.5px; padding: 0; min-height: 24px; }
+.post-action:hover { color: var(--accent); }
+.post-action.like:hover, .post-action.like.on { color: #e0245e; }
+.nav-topic { display: flex; align-items: center; gap: 18px; }
+.nav-label { padding: 6px 14px 2px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
+@media (max-width: 1100px) { .feed-layout { grid-template-columns: minmax(0, 1fr); } .feed-side { position: static; } }
+@media (max-width: 860px) { .feed-col { border: 0; margin: 0 -16px; } .feed-head { top: 70px; } .post-actions { gap: 28px; } }
