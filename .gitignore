@@ -8,3 +8,4 @@ dev.log
 *.log
 Claude outputs/
 .deploy-*.cmd
+data/

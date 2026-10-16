@@ -1,26 +1,15 @@
-import { NextResponse } from "next/server";
-import { createPost, listPosts } from "@/lib/feed";
-
-export const dynamic = "force-dynamic";
-
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const topic = url.searchParams.get("topic") ?? "robotics";
-  const sort = url.searchParams.get("sort") === "top" ? "top" : "latest";
-  return NextResponse.json(await listPosts(topic, sort));
-}
+import { createPost } from "@/lib/server/social";
+import { json, mutate } from "@/lib/server/http";
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    const post = await createPost({
-      topic: String(body.topic ?? "robotics"),
-      author: String(body.author ?? ""),
-      text: String(body.text ?? ""),
-      parentId: body.parentId ? String(body.parentId) : null,
+  return mutate("post", [30, 10 * 60_000], async (user) => {
+    const b = await req.json();
+    const id = await createPost(user.id, {
+      text: String(b.text ?? ""),
+      images: Array.isArray(b.images) ? b.images.map(String) : [],
+      replyTo: b.replyTo ? String(b.replyTo) : null,
+      quoteOf: b.quoteOf ? String(b.quoteOf) : null,
     });
-    return NextResponse.json(post, { status: 201 });
-  } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 400 });
-  }
+    return json({ id }, 201);
+  });
 }

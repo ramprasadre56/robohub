@@ -37,7 +37,25 @@ All content lives in `lib/data.ts`. **Hackathons, events and leaderboard entries
 - Hook `components/RegisterForm.tsx` to a Route Handler + database (e.g. Supabase) to store registrations.
 - Deploy on Vercel: push to GitHub and import the repo.
 
-## Robotics topic feed
+## RoboHub Social (X-style community)
 
-`/topics/robotics` is an X-style discussion feed (posts, replies, likes). In production it stores posts in Firestore (collection `robohub_posts`) using the `robohub-sa` service account; in local dev it uses an in-memory store (set `FEED_STORE=firestore` to use Firestore locally after `gcloud auth application-default login`).
+`/feed` is an X-style social network for robotics: accounts, posts with up to 4 images, replies, likes, reposts,
+quotes, bookmarks, @mentions, #hashtags, follows, notifications, profiles, search and trending.
 
+| Route | What it is |
+|---|---|
+| `/feed` | Home timeline — **For you** (ranked) / **Following** |
+| `/u/[handle]` | Profile — Posts / Replies / Media / Likes |
+| `/u/[handle]/status/[id]` | Post with its reply thread |
+| `/explore`, `/hashtag/[tag]` | Search posts & people, trending hashtags |
+| `/notifications`, `/bookmarks` | Signed-in only |
+| `/signup`, `/login`, `/settings/profile` | Accounts |
+
+**Storage (local):** SQLite via Node's built-in `node:sqlite` (Node 22+) at `data/robohub.db`; uploads in
+`data/uploads/`. Both are git-ignored. Delete the `data` folder to reset.
+
+**Google sign-in:** copy `.env.local.example` to `.env.local`, add `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`
+(OAuth client, redirect URI `http://localhost:3000/api/auth/google/callback`) and restart `npm run dev`.
+
+**Before deploying:** Cloud Run's disk is temporary, so swap `lib/server/db.ts` + `lib/server/media.ts` for a managed
+database (Firestore / Cloud SQL) and Cloud Storage.
